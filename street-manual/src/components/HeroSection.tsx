@@ -39,20 +39,26 @@ export default function HeroSection({ onOpenGumroad }: HeroSectionProps) {
 
       <div className="z-10 relative max-w-xl md:ml-auto md:mr-0 mx-auto w-full">
         {/* Centered Panel with glassmorphism to show photo backdrop */}
-        <div className="bg-[#111111]/70 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-[20px] flex flex-col justify-between text-white shadow-xl">
+        <div className="bg-[#0b0b0b]/85 backdrop-blur-lg border border-amber-500/20 p-6 md:p-8 rounded-[20px] flex flex-col justify-between text-white shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_30px_rgba(245,158,11,0.05)] hover:border-amber-500/40 hover:shadow-[0_12px_45px_rgba(0,0,0,0.7),0_0_35px_rgba(245,158,11,0.1)] transition-all duration-300">
           <div>
-            <h2 className="text-lg md:text-xl font-black uppercase tracking-tight text-white leading-tight mb-2 text-center">
-              For when you're out shooting and your brain goes blank.
+            <div className="flex justify-center mb-4">
+              <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2.5 py-0.5 rounded-full">
+                STREET MANUAL • THE DECK
+              </span>
+            </div>
+
+            <h2 className="text-lg md:text-xl font-black uppercase tracking-tight text-white leading-tight mb-3 text-center">
+              For when you're out shooting<br />and your <span className="text-amber-500">brain goes blank.</span>
             </h2>
             
-            <p className="text-neutral-400 text-xs font-sans leading-relaxed mb-4 text-center">
+            <p className="text-neutral-300 text-xs font-sans leading-relaxed mb-4 text-center">
               Street Manual is a set of prompt cards covering techniques, locations, photographer influences, and project ideas. Created for street photographers who get overwhelmed, run out of ideas, or need a nudge in the right direction.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-neutral-800">
+            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-neutral-800/80">
               {/* Free Section */}
               <div className="text-center border-r border-neutral-800/50 pr-2">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-black block mb-1">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-amber-500/70 font-black block mb-1">
                   Free
                 </span>
                 <p className="text-[11px] text-neutral-300 font-sans leading-relaxed">
@@ -62,7 +68,7 @@ export default function HeroSection({ onOpenGumroad }: HeroSectionProps) {
 
               {/* Full Deck Section */}
               <div className="text-center pl-2">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-[#888888] font-black block mb-1">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-500/70 font-black block mb-1">
                   Full deck
                 </span>
                 <p className="text-[11px] text-neutral-300 font-sans leading-relaxed">
@@ -72,11 +78,11 @@ export default function HeroSection({ onOpenGumroad }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-neutral-800">
+          <div className="mt-5 pt-3 border-t border-neutral-800/80">
             <button
               id="hero-gumroad-btn"
               onClick={onOpenGumroad}
-              className="w-full bg-emerald-950/40 border border-emerald-800/50 text-emerald-400 hover:bg-emerald-900/40 font-bold text-[9px] font-mono uppercase tracking-wider py-2.5 px-4 rounded-xl text-center transition-colors cursor-pointer"
+              className="w-full bg-emerald-950/30 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-900/40 hover:border-emerald-500/50 font-bold text-[9px] font-mono uppercase tracking-wider py-2.5 px-4 rounded-xl text-center transition-all cursor-pointer shadow-sm hover:shadow-md"
             >
               Browse packs on Gumroad
             </button>

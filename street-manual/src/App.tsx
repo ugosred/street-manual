@@ -273,31 +273,26 @@ export default function App() {
                 </div>
               )}
 
-              {/* Minimal Field Guide Instructions / Key legends */}
-              <div className="mt-8 border-t border-[#1a1a1a] pt-8 grid grid-cols-1 md:grid-cols-3 gap-6 text-[#555555]">
-                <div className="flex gap-3">
-                  <div className="text-xs font-mono font-bold shrink-0 text-[#888888]">
-                    [A]
-                  </div>
-                  <p className="text-[11px] font-sans leading-relaxed">
-                    <strong>Zone Focusing:</strong> Keep standard manual camera prime lenses focused permanently at 1.5-2m to seize unposed, candid geometry on high-contrast tarmac.
+              {/* Why this exists */}
+              <div className="mt-16 border-t border-[#1a1a1a] pt-12">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full block w-fit mb-8">
+                  Why this exists
+                </span>
+                
+                <div className="w-full space-y-6 text-left">
+                  <p className="text-sm text-neutral-300 font-sans leading-relaxed">
+                    Street photography has a specific problem. You go out with good intentions and within twenty minutes you're walking in circles, shooting nothing, wondering why you bothered.
                   </p>
-                </div>
-                <div className="flex gap-3">
-                  <div className="text-xs font-mono font-bold shrink-0 text-[#888888]">
-                    [B]
-                  </div>
-                  <p className="text-[11px] font-sans leading-relaxed">
-                    <strong>Tactile Cards:</strong> Click any free card to pick it up and flip it. Study the assignment parameters on the back, then replicate on your camera.
+                  
+                  <p className="text-base md:text-lg font-black text-white uppercase tracking-tight font-sans leading-snug">
+                    It's not a skill problem. <span className="text-amber-500">It's a direction problem.</span>
                   </p>
-                </div>
-                <div className="flex gap-3">
-                  <div className="text-xs font-mono font-bold shrink-0 text-[#888888]">
-                    [C]
-                  </div>
-                  <p className="text-[11px] font-sans leading-relaxed">
-                    <strong>Premium Pack:</strong> Access detailed assignments, full lens recommendation guides, and coordinates for hidden spots across London, Essex, and Hertfordshire.
+                  
+                  <p className="text-sm text-neutral-300 font-sans leading-relaxed">
+                    Street Manual is what I wanted to exist when I started shooting — a set of prompts, constraints, and reminders that get you out of your head and back to looking at the street. Not a course. Not a YouTube video. Something you can pull out on a corner in Bethnal Green at 10am and immediately know what to do next.
                   </p>
+                  
+
                 </div>
               </div>
 
@@ -321,7 +316,7 @@ export default function App() {
                 STREET MANUAL
               </h4>
               <p className="text-xs text-[#888888] font-sans leading-relaxed">
-                A tactical street photography manual tool designed to spark your creativity, refine your muscle memory, and challenge your perspective.
+                Made by a photographer, for photographers. Tested on actual streets.
               </p>
             </div>
 
