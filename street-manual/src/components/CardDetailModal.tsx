@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, RotateCw, Camera, Compass, ClipboardList, Clock, Check } from 'lucide-react';
 import { Card } from '../types';
@@ -20,6 +20,14 @@ export default function CardDetailModal({
   onToggleMarkAsRead,
 }: CardDetailModalProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    // Prevent scrolling the main body of the webpage when the modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   if (!card) return null;
 
@@ -57,9 +65,9 @@ export default function CardDetailModal({
           </button>
 
           {/* 3D Card Container with perspective */}
-          <div className="w-full min-h-[480px] perspective-1000 flex items-center justify-center">
+          <div className="w-full h-[70vh] sm:h-[480px] min-h-[360px] sm:min-h-[480px] perspective-1000 flex items-center justify-center">
             <motion.div
-              className="relative w-full h-[480px] transition-all duration-700 transform-style-3d cursor-pointer"
+              className="relative w-full h-full transition-all duration-700 transform-style-3d cursor-pointer"
               animate={{ rotateY: isFlipped ? 180 : 0 }}
               onClick={() => setIsFlipped(!isFlipped)}
             >
@@ -107,8 +115,10 @@ export default function CardDetailModal({
 
                 {/* Scrollable Content (No-flip on click/drag) */}
                 <div 
-                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar"
+                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar overscroll-contain touch-pan-y"
                   onClick={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
                 >
                   <h2 className="text-3xl md:text-4xl font-black tracking-tight text-[#111111] leading-none mb-6 uppercase">
                     {card.title}
@@ -160,8 +170,10 @@ export default function CardDetailModal({
 
                 {/* Scrollable Content (No-flip on click/drag) */}
                 <div 
-                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar-white"
+                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar-white overscroll-contain touch-pan-y"
                   onClick={(e) => e.stopPropagation()}
+                  onTouchStart={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
                 >
                   <h3 className="text-xl font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
                     <ClipboardList className="h-5 w-5 text-white/95" />
