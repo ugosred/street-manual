@@ -20,6 +20,7 @@ export default function CardDetailModal({
   onToggleMarkAsRead,
 }: CardDetailModalProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     // Prevent scrolling the main body of the webpage when the modal is open
@@ -67,8 +68,13 @@ export default function CardDetailModal({
           {/* 3D Card Container with perspective */}
           <div className="w-full h-[70vh] sm:h-[480px] min-h-[360px] sm:min-h-[480px] perspective-1000 flex items-center justify-center">
             <motion.div
-              className="relative w-full h-full transition-all duration-700 transform-style-3d cursor-pointer"
+              className={`relative w-full h-full cursor-pointer ${
+                isAnimating ? 'transform-style-3d' : ''
+              }`}
               animate={{ rotateY: isFlipped ? 180 : 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              onAnimationStart={() => setIsAnimating(true)}
+              onAnimationComplete={() => setIsAnimating(false)}
               onClick={() => setIsFlipped(!isFlipped)}
             >
               
@@ -77,6 +83,8 @@ export default function CardDetailModal({
                 className="absolute inset-0 bg-white text-black rounded-[24px] p-8 flex flex-col justify-between backface-hidden shadow-2xl overflow-hidden"
                 style={{
                   transform: 'rotateY(0deg)',
+                  visibility: (!isFlipped || isAnimating) ? 'visible' : 'hidden',
+                  pointerEvents: (!isFlipped && !isAnimating) ? 'auto' : 'none',
                 }}
               >
                 {/* Thin category top strip */}
@@ -146,6 +154,8 @@ export default function CardDetailModal({
                 style={{
                   transform: 'rotateY(180deg)',
                   backgroundColor: categoryColor,
+                  visibility: (isFlipped || isAnimating) ? 'visible' : 'hidden',
+                  pointerEvents: (isFlipped && !isAnimating) ? 'auto' : 'none',
                 }}
               >
                 {/* Pinned Top Bar */}
