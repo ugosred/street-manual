@@ -27,22 +27,22 @@ export default function FilterBar({ selectedCategory, onSelectCategory, onShuffl
         <button
           id="shuffle-btn"
           onClick={onShuffle}
-          className="flex items-center justify-center gap-2 bg-[#111111]/90 hover:bg-neutral-900 border border-white/10 hover:border-white/25 text-white font-bold text-[10px] font-mono uppercase tracking-wider px-6 py-3 rounded-full transition-all duration-200 cursor-pointer shadow-lg active:scale-95 group"
+          className="flex items-center justify-center gap-2 bg-app-bg-secondary/95 hover:bg-app-bg-tertiary border border-app-border-primary hover:border-app-text-tertiary/50 text-app-text-primary font-bold text-[10px] font-mono uppercase tracking-wider px-6 py-3 rounded-full transition-all duration-200 cursor-pointer shadow-lg active:scale-95 group"
         >
-          <Shuffle className="h-3.5 w-3.5 text-neutral-400 group-hover:text-white transition-colors" />
+          <Shuffle className="h-3.5 w-3.5 text-app-text-tertiary group-hover:text-app-text-primary transition-colors" />
           <span>Inspire Me</span>
         </button>
       </div>
 
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs font-mono uppercase tracking-widest text-[#888888] font-bold">
+        <span className="text-xs font-mono uppercase tracking-widest text-app-text-tertiary font-bold">
           Filter Deck By Category
         </span>
         {selectedCategory !== 'all' && (
           <button
             id="clear-filter"
             onClick={() => onSelectCategory('all')}
-            className="text-xs font-mono text-white underline underline-offset-4 hover:text-[#cccccc] transition-colors"
+            className="text-xs font-mono text-app-text-primary underline underline-offset-4 hover:text-app-text-secondary transition-colors"
           >
             Reset All
           </button>
@@ -56,8 +56,8 @@ export default function FilterBar({ selectedCategory, onSelectCategory, onShuffl
           onClick={() => onSelectCategory('all')}
           className={`shrink-0 px-4 py-2 rounded-full text-[10px] uppercase font-bold border transition-all duration-200 cursor-pointer ${
             selectedCategory === 'all'
-              ? 'bg-white text-black border-white opacity-100 scale-105 shadow-md'
-              : 'bg-white text-black border-white opacity-40 hover:opacity-85 hover:scale-105'
+              ? 'bg-app-text-primary text-app-bg-primary border-app-text-primary opacity-100 scale-105 shadow-md'
+              : 'bg-app-bg-secondary text-app-text-primary border-app-border-primary opacity-60 hover:opacity-100 hover:scale-105'
           }`}
         >
           All

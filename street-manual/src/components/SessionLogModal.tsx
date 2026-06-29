@@ -69,10 +69,10 @@ export default function SessionLogModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ type: 'spring', duration: 0.35, bounce: 0.15 }}
-          className="relative bg-[#161616] border border-neutral-800 rounded-3xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl z-10 text-white font-sans"
+          className="relative bg-app-bg-secondary border border-app-border-primary rounded-3xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl z-10 text-app-text-primary font-sans"
         >
           {/* Header */}
-          <div className="p-6 md:p-8 border-b border-neutral-800 flex items-center justify-between">
+          <div className="p-6 md:p-8 border-b border-app-border-primary flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <Compass className="h-5 w-5 text-amber-500 animate-spin-slow" />
@@ -80,7 +80,7 @@ export default function SessionLogModal({
                   Focus Log
                 </h2>
               </div>
-              <p className="text-neutral-400 text-xs font-sans">
+              <p className="text-app-text-secondary text-xs font-sans">
                 Real-time field tracker • stored offline in your browser
               </p>
             </div>
@@ -88,7 +88,7 @@ export default function SessionLogModal({
             <button
               id="close-session-log-btn"
               onClick={onClose}
-              className="p-2 hover:bg-neutral-800 text-neutral-400 hover:text-white rounded-full transition-colors cursor-pointer"
+              className="p-2 hover:bg-app-bg-tertiary text-app-text-secondary hover:text-app-text-primary rounded-full transition-colors cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -98,13 +98,13 @@ export default function SessionLogModal({
           <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
             {usedCards.length === 0 ? (
               <div className="text-center py-12 flex flex-col items-center justify-center">
-                <div className="bg-neutral-900 border border-neutral-800 p-4 rounded-full mb-4 text-neutral-600">
+                <div className="bg-app-bg-primary border border-app-border-primary p-4 rounded-full mb-4 text-app-text-tertiary">
                   <BookOpen className="h-8 w-8" />
                 </div>
-                <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-neutral-300 mb-1">
+                <h3 className="font-mono text-sm font-bold uppercase tracking-wider text-app-text-secondary mb-1">
                   Your active focus list is empty
                 </h3>
-                <p className="text-xs text-neutral-500 max-w-sm leading-relaxed">
+                <p className="text-xs text-app-text-tertiary max-w-sm leading-relaxed">
                   Mark ideas or technique cards as "Focus Card" during your shoot to compile a tactical assignment report.
                 </p>
               </div>
@@ -167,10 +167,10 @@ export default function SessionLogModal({
                           className="w-2.5 h-2.5 rounded-full shrink-0"
                           style={{ backgroundColor: category.color }}
                         />
-                        <h4 className="text-xs font-mono font-extrabold uppercase tracking-widest text-white">
+                        <h4 className="text-xs font-mono font-extrabold uppercase tracking-widest text-app-text-primary">
                           {category.name}
                         </h4>
-                        <span className="text-[10px] text-neutral-500 font-mono font-bold ml-auto">
+                        <span className="text-[10px] text-app-text-tertiary font-mono font-bold ml-auto">
                           {cards.length} {cards.length === 1 ? 'card' : 'cards'}
                         </span>
                       </div>
@@ -184,7 +184,7 @@ export default function SessionLogModal({
                               onClose();
                               onCardClick(card);
                             }}
-                            className="group flex items-center justify-between p-3.5 bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700 hover:bg-neutral-900/80 rounded-xl transition-all cursor-pointer"
+                            className="group flex items-center justify-between p-3.5 bg-app-bg-primary border border-app-border-primary hover:border-app-text-tertiary hover:bg-app-bg-tertiary rounded-xl transition-all cursor-pointer"
                           >
                             <div className="flex items-center gap-3 min-w-0 flex-1">
                               {/* Left Colored accent line representing the card category */}
@@ -193,11 +193,11 @@ export default function SessionLogModal({
                                 style={{ backgroundColor: category.color }}
                               />
                               <div className="min-w-0">
-                                <span className="block text-xs font-black uppercase tracking-wide text-white group-hover:text-amber-500 transition-colors truncate">
+                                <span className="block text-xs font-black uppercase tracking-wide text-app-text-primary group-hover:text-amber-500 transition-colors truncate">
                                   {card.title}
                                 </span>
                                 {card.settings && (
-                                  <span className="block text-[9px] font-mono text-neutral-500 uppercase mt-0.5">
+                                  <span className="block text-[9px] font-mono text-app-text-tertiary uppercase mt-0.5">
                                     {card.settings.split('|')[0].trim()}
                                   </span>
                                 )}
@@ -212,12 +212,12 @@ export default function SessionLogModal({
                                   e.stopPropagation();
                                   onToggleUsed(card.id);
                                 }}
-                                className="p-1 text-neutral-600 hover:text-red-400 hover:bg-neutral-800 rounded transition-colors cursor-pointer"
+                                className="p-1 text-app-text-tertiary hover:text-red-400 hover:bg-app-bg-tertiary rounded transition-colors cursor-pointer"
                                 title="Remove from session"
                               >
                                 <X className="h-3.5 w-3.5" />
                               </button>
-                              <ArrowRight className="h-3 w-3 text-neutral-600 group-hover:text-white transition-all transform group-hover:translate-x-1" />
+                              <ArrowRight className="h-3 w-3 text-app-text-tertiary group-hover:text-app-text-primary transition-all transform group-hover:translate-x-1" />
                             </div>
                           </div>
                         ))}
