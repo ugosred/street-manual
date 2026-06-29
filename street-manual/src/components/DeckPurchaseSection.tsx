@@ -164,7 +164,10 @@ export default function DeckPurchaseSection({ onOpenGumroad }: DeckPurchaseSecti
                     </span>
                   </div>
                   <p className="text-xs text-[#888888] leading-relaxed mb-4">
-                    Join Luke's creative photography circle. Get a single bespoke street prompt, technical setup tips, and framing concepts delivered straight to your inbox every Sunday morning.
+                    Join Luke's creative photography circle. Get a bespoke street idea for the week, tips, and concepts delivered straight to your inbox every Sunday morning.
+                  </p>
+                  <p className="text-xs text-[#888888] leading-relaxed mb-4">
+                    Share your work and we'll showcase the best on our Instagram and blog!
                   </p>
                 </div>
                 
@@ -211,8 +214,8 @@ export default function DeckPurchaseSection({ onOpenGumroad }: DeckPurchaseSecti
             </button>
             <p className="text-center text-[10px] font-mono text-[#555555] mt-3">
               {activeOption === 'digital' 
-                ? "Fulfilled securely via Gumroad. Instant delivery via email."
-                : "Opens Luke's personal portfolio & newsletter sign-up."}
+                ? "Instant delivery via email."
+                : ""}
             </p>
           </div>
         </div>

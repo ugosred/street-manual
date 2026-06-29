@@ -9,16 +9,16 @@ interface CardComponentProps {
   card: Card;
   onCardClick: (card: Card) => void;
   onGetDeckClick: (e: React.MouseEvent, card: Card) => void;
-  isMarkedRead: boolean;
-  onToggleMarkAsRead: (cardId: string) => void;
+  isUsed: boolean;
+  onToggleUsed: (cardId: string) => void;
 }
 
 export default function CardComponent({
   card,
   onCardClick,
   onGetDeckClick,
-  isMarkedRead,
-  onToggleMarkAsRead,
+  isUsed,
+  onToggleUsed,
 }: CardComponentProps) {
   // Check if this card is locked
   const isLocked = card.locked;
@@ -50,11 +50,16 @@ export default function CardComponent({
         }
       }}
       id={`card-${card.id}`}
-      className={`group relative bg-white text-black rounded-[24px] p-0 flex flex-col justify-between select-none shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_24px_48px_rgba(0,0,0,0.12)] transition-shadow duration-200 overflow-hidden ${
-        isLocked ? 'bg-neutral-100 cursor-not-allowed min-h-[290px]' : 'cursor-pointer min-h-[270px] h-auto'
+      className={`group relative bg-white text-black rounded-[24px] p-0 flex flex-col justify-between select-none shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_24px_48px_rgba(0,0,0,0.12)] transition-all duration-200 overflow-hidden ${
+        isLocked 
+          ? 'bg-neutral-100 cursor-not-allowed min-h-[290px]' 
+          : isUsed 
+            ? 'cursor-pointer border-2 min-h-[270px] h-auto'
+            : 'cursor-pointer min-h-[270px] h-auto'
       }`}
       style={{
         transformStyle: 'preserve-3d',
+        borderColor: (!isLocked && isUsed) ? categoryColor : undefined,
       }}
     >
       {/* Card Content Top Area */}
@@ -68,23 +73,6 @@ export default function CardComponent({
               >
                 {card.categoryName}
               </span>
-              {!isLocked && (
-                <button
-                  id={`mark-read-btn-${card.id}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onToggleMarkAsRead(card.id);
-                  }}
-                  className={`p-1 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center border ${
-                    isMarkedRead 
-                      ? 'bg-emerald-50 text-emerald-600 border-emerald-200 hover:bg-emerald-100' 
-                      : 'bg-neutral-50 text-[#888888] border-neutral-200/80 hover:bg-neutral-100 hover:text-[#333333]'
-                  }`}
-                  title={isMarkedRead ? "Mark as unread" : "Mark as read"}
-                >
-                  <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                </button>
-              )}
             </div>
             
             {!isLocked && card.settings && (
@@ -132,6 +120,39 @@ export default function CardComponent({
             )}
           </div>
         </div>
+
+        {/* Used this session toggle */}
+        {!isLocked && (
+          <div className="mt-3 pt-3 border-t border-neutral-100 flex items-center justify-between pb-3">
+            <button
+              id={`use-card-${card.id}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleUsed(card.id);
+              }}
+              className="flex items-center gap-2.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#555555] hover:text-[#111111] transition-colors cursor-pointer group/used"
+            >
+              <div 
+                className={`w-5 h-5 rounded-full border transition-all flex items-center justify-center shrink-0 ${
+                  isUsed 
+                    ? 'bg-emerald-500 border-emerald-500 text-white shadow-sm' 
+                    : 'border-neutral-300 bg-white group-hover/used:border-neutral-400'
+                }`}
+              >
+                {isUsed && <Check className="h-3 w-3 stroke-[4]" />}
+              </div>
+              <span>Focus Card</span>
+            </button>
+
+            {isUsed && (
+              <span 
+                className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100"
+              >
+                Active
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Card Footer / Action Button */}

@@ -7,6 +7,8 @@ interface HeaderProps {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   totalCards: number;
+  onOpenSessionLog: () => void;
+  usedCount: number;
 }
 
 export default function Header({ 
@@ -14,7 +16,9 @@ export default function Header({
   activeSection, 
   searchQuery, 
   setSearchQuery, 
-  totalCards 
+  totalCards,
+  onOpenSessionLog,
+  usedCount,
 }: HeaderProps) {
   return (
     <header className="mb-12 border-b border-[#222222] pb-8 animate-fade-in">
@@ -81,6 +85,20 @@ export default function Header({
               }`}
             >
               Browse Cards
+            </button>
+            <button
+              id="nav-session-log"
+              onClick={onOpenSessionLog}
+              className={`text-left hover:text-amber-500 transition-colors duration-200 border-b-2 pb-1 cursor-pointer flex items-center gap-1.5 ${
+                usedCount > 0 ? 'border-amber-500/50 text-amber-500' : 'border-transparent text-neutral-500'
+              }`}
+            >
+              <span>Focus Log</span>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded font-mono font-bold leading-none ${
+                usedCount > 0 ? 'bg-amber-500 text-black' : 'bg-neutral-800 text-neutral-400'
+              }`}>
+                {usedCount}
+              </span>
             </button>
             <button
               id="nav-get-deck"

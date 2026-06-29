@@ -3,14 +3,10 @@ import { Sparkles, Mail, Check } from 'lucide-react';
 
 interface StatsBannerProps {
   onGoToGetDeck: () => void;
-  readCount: number;
-  totalCount: number;
 }
 
 export default function StatsBanner({
   onGoToGetDeck,
-  readCount,
-  totalCount,
 }: StatsBannerProps) {
   return (
     <div className="mb-10 animate-slide-in">
@@ -24,12 +20,6 @@ export default function StatsBanner({
               <p className="text-sm font-medium text-white">
                 14 cards free. <span className="text-neutral-400">Unlock all 140+ cards — from £4.</span>
               </p>
-              {readCount > 0 && (
-                <span className="inline-flex items-center gap-1 bg-emerald-950/40 border border-emerald-800/50 text-emerald-400 font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">
-                  <Check className="h-3 w-3 stroke-[3]" />
-                  Progress: {readCount} / {totalCount} completed
-                </span>
-              )}
             </div>
             <p className="text-neutral-500 text-xs mt-1">
               When you don't know where to start, start here.

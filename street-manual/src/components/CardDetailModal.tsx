@@ -8,16 +8,16 @@ interface CardDetailModalProps {
   card: Card | null;
   onClose: () => void;
   onGetDeck: () => void;
-  isMarkedRead: boolean;
-  onToggleMarkAsRead: (cardId: string) => void;
+  isUsed: boolean;
+  onToggleUsed: (cardId: string) => void;
 }
 
 export default function CardDetailModal({ 
   card, 
   onClose, 
   onGetDeck,
-  isMarkedRead,
-  onToggleMarkAsRead,
+  isUsed,
+  onToggleUsed,
 }: CardDetailModalProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -101,21 +101,29 @@ export default function CardDetailModal({
                       </span>
                     </div>
 
-                    <button
-                      id="modal-mark-read-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleMarkAsRead(card.id);
-                      }}
-                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-                        isMarkedRead 
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
-                          : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
-                      }`}
-                    >
-                      <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                      <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button
+                        id="modal-use-card-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onToggleUsed(card.id);
+                        }}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
+                          isUsed 
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
+                            : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
+                        }`}
+                      >
+                        <div 
+                          className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${
+                            isUsed ? 'bg-emerald-500 text-white' : 'bg-neutral-200 text-neutral-400'
+                          }`}
+                        >
+                          <Check className="h-2.5 w-2.5 stroke-[4]" />
+                        </div>
+                        <span>Focus Card</span>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Scrollable Content (No-flip on click/drag) */}
@@ -166,21 +174,6 @@ export default function CardDetailModal({
                   <span className="text-xs font-black tracking-widest uppercase font-mono text-white/90">
                     Field Assignment
                   </span>
-                  <button
-                    id="modal-mark-read-btn-back"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleMarkAsRead(card.id);
-                    }}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-                      isMarkedRead 
-                        ? 'bg-emerald-600/30 text-emerald-200 border-emerald-500/50 hover:bg-emerald-600/40' 
-                        : 'bg-white/10 text-white/80 border-white/20 hover:bg-white/20 hover:text-white'
-                    }`}
-                  >
-                    <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                    <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
-                  </button>
                 </div>
 
                 {/* Scrollable Content (No-flip on click/drag) */}

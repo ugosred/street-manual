@@ -11,6 +11,7 @@ import FilterBar from './components/FilterBar';
 import StatsBanner from './components/StatsBanner';
 import CardComponent from './components/CardComponent';
 import CardDetailModal from './components/CardDetailModal';
+import SessionLogModal from './components/SessionLogModal';
 import DeckPurchaseSection from './components/DeckPurchaseSection';
 import GumroadModal from './components/GumroadModal';
 
@@ -50,32 +51,42 @@ export default function App() {
   // Interactive Simulator States
   const [activeCardDetail, setActiveCardDetail] = useState<Card | null>(null);
 
-  // Mark as read state tracked via localStorage
-  const [readCardIds, setReadCardIds] = useState<string[]>(() => {
+  // Session Log state tracked via localStorage key streetmanual_used_cards
+  const [usedCardIds, setUsedCardIds] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('street_manual_read_cards');
+      const saved = localStorage.getItem('streetmanual_used_cards');
       return saved ? JSON.parse(saved) : [];
     } catch (e) {
       return [];
     }
   });
 
-  const toggleMarkAsRead = (cardId: string) => {
-    setReadCardIds(prev => {
+  const toggleUsedCard = (cardId: string) => {
+    setUsedCardIds(prev => {
       const next = prev.includes(cardId)
         ? prev.filter(id => id !== cardId)
         : [...prev, cardId];
       try {
-        localStorage.setItem('street_manual_read_cards', JSON.stringify(next));
+        localStorage.setItem('streetmanual_used_cards', JSON.stringify(next));
       } catch (e) {
         // ignore
       }
       return next;
     });
   };
+
+  const clearSessionLog = () => {
+    try {
+      localStorage.setItem('streetmanual_used_cards', JSON.stringify([]));
+    } catch (e) {
+      // ignore
+    }
+    setUsedCardIds([]);
+  };
   
   // Modal visibility states
   const [isGumroadOpen, setIsGumroadOpen] = useState(false);
+  const [isSessionLogOpen, setIsSessionLogOpen] = useState(false);
   
   // Creative feature: camera shutter flash effect state
   const [shutterFlash, setShutterFlash] = useState(false);
@@ -154,6 +165,8 @@ export default function App() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           totalCards={filteredCards.length}
+          onOpenSessionLog={() => setIsSessionLogOpen(true)}
+          usedCount={usedCardIds.length}
         />
 
         {/* Dynamic page rendering */}
@@ -167,8 +180,6 @@ export default function App() {
               {/* Promotional Banner above grid */}
               <StatsBanner 
                 onGoToGetDeck={() => setActiveSection('get-deck')}
-                readCount={readCardIds.length}
-                totalCount={CARDS.filter(c => !c.locked).length}
               />
 
               {/* Main controls row: FilterBar */}
@@ -178,6 +189,18 @@ export default function App() {
                   onSelectCategory={handleSelectCategory}
                   onShuffle={handleShuffle}
                 />
+                {usedCardIds.length > 0 && (
+                  <div className="mt-4 flex justify-start">
+                    <button
+                      id="stats-session-log-btn"
+                      onClick={() => setIsSessionLogOpen(true)}
+                      className="inline-flex items-center gap-1.5 bg-amber-950/40 border border-amber-800/50 hover:border-amber-600/70 text-amber-400 font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded transition-colors cursor-pointer"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                      <span>Focus Log: {usedCardIds.length} Active</span>
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Informative helper info bar if search has results */}
@@ -209,8 +232,8 @@ export default function App() {
                           e.stopPropagation();
                           handleOpenGumroad();
                         }}
-                        isMarkedRead={readCardIds.includes(card.id)}
-                        onToggleMarkAsRead={toggleMarkAsRead}
+                        isUsed={usedCardIds.includes(card.id)}
+                        onToggleUsed={toggleUsedCard}
                       />
                     ))}
                   </div>
@@ -366,10 +389,21 @@ export default function App() {
             card={activeCardDetail}
             onClose={() => setActiveCardDetail(null)}
             onGetDeck={handleOpenGumroad}
-            isMarkedRead={readCardIds.includes(activeCardDetail.id)}
-            onToggleMarkAsRead={toggleMarkAsRead}
+            isUsed={usedCardIds.includes(activeCardDetail.id)}
+            onToggleUsed={toggleUsedCard}
           />
         )}
+
+        {/* Session Log Modal */}
+        <SessionLogModal
+          isOpen={isSessionLogOpen}
+          onClose={() => setIsSessionLogOpen(false)}
+          usedCardIds={usedCardIds}
+          cards={CARDS}
+          onToggleUsed={toggleUsedCard}
+          onClearAll={clearSessionLog}
+          onCardClick={handleCardClick}
+        />
 
         {/* Gumroad Simulated Gateway */}
         <GumroadModal 
