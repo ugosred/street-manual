@@ -1,0 +1,6 @@
+{
+  "name": "Street Manual",
+  "description": "A dark-themed field guide for street photographers, featuring a digital card deck of techniques, locations, projects, and settings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
