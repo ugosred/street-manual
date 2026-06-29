@@ -47,7 +47,7 @@ export default function Header({
         
         <div className="flex flex-col items-stretch md:items-end gap-4 w-full md:w-[450px]">
           <div className="relative w-full">
-            <div className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-[#555555]">
+            <div className="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-white">
               <Search className="h-4 w-4" />
             </div>
             <input
@@ -61,13 +61,13 @@ export default function Header({
                   onNavigate('browse');
                 }
               }}
-              className="w-full bg-[#161616] border border-[#222222] text-white text-[11px] font-mono placeholder-[#555555] rounded-xl pl-10 pr-12 py-3 focus:outline-none focus:border-[#444444] tracking-wider uppercase transition-colors"
+              className="w-full bg-[#161616] border border-white/30 text-white text-[11px] font-mono placeholder-[#555555] rounded-xl pl-10 pr-20 py-3 focus:outline-none focus:border-white/70 tracking-wider uppercase transition-colors"
             />
             
             {/* Retro Camera frame counter display detail */}
             <div className="absolute right-3.5 inset-y-0 flex items-center pointer-events-none">
               <span className="text-[9px] font-mono font-bold bg-[#1d1d1d] border border-[#333333] text-amber-500 px-2 py-0.5 rounded leading-none">
-                {totalCards.toString().padStart(2, '0')}
+                {totalCards.toString().padStart(2, '0')} IDEAS
               </span>
             </div>
           </div>

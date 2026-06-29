@@ -298,7 +298,7 @@ export default function App() {
                 STREET MANUAL
               </h4>
               <p className="text-xs text-[#888888] font-sans leading-relaxed">
-                A tactical street photography manual & interactive field simulator designed to spark your creativity, refine your mechanical muscle memory, and challenge your spatial perspective.
+                A tactical street photography manual tool designed to spark your creativity, refine your muscle memory, and challenge your perspective.
               </p>
             </div>
 

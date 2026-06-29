@@ -9,6 +9,16 @@ interface FilterBarProps {
   onShuffle: () => void;
 }
 
+// YIQ helper to ensure WCAG-compliant contrast text color over solid background
+function getContrastColor(hexColor: string): string {
+  const hex = hexColor.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? '#000000' : '#ffffff';
+}
+
 export default function FilterBar({ selectedCategory, onSelectCategory, onShuffle }: FilterBarProps) {
   return (
     <div className="mb-10">
@@ -44,10 +54,10 @@ export default function FilterBar({ selectedCategory, onSelectCategory, onShuffl
         <button
           id="filter-all"
           onClick={() => onSelectCategory('all')}
-          className={`shrink-0 px-3 py-1.5 rounded-full text-[10px] uppercase font-bold transition-all duration-200 cursor-pointer border ${
+          className={`shrink-0 px-4 py-2 rounded-full text-[10px] uppercase font-bold border transition-all duration-200 cursor-pointer ${
             selectedCategory === 'all'
-              ? 'bg-white text-black border-white'
-              : 'bg-[#161616] text-neutral-400 border-[#222222] hover:bg-white hover:text-black hover:border-white'
+              ? 'bg-white text-black border-white opacity-100 scale-105 shadow-md'
+              : 'bg-white text-black border-white opacity-40 hover:opacity-85 hover:scale-105'
           }`}
         >
           All
@@ -56,20 +66,21 @@ export default function FilterBar({ selectedCategory, onSelectCategory, onShuffl
         {/* Category Specific Filter Buttons */}
         {CATEGORIES.map((category) => {
           const isActive = selectedCategory === category.id;
+          const textColor = getContrastColor(category.color);
           return (
             <button
               id={`filter-${category.id}`}
               key={category.id}
               onClick={() => onSelectCategory(category.id)}
               style={{
+                backgroundColor: category.color,
                 borderColor: category.color,
-                backgroundColor: isActive ? category.color : 'transparent',
-                color: isActive ? '#ffffff' : category.color,
+                color: textColor,
               }}
-              className={`shrink-0 px-3 py-1.5 rounded-full text-[10px] uppercase font-bold border transition-all duration-200 cursor-pointer ${
+              className={`shrink-0 px-4 py-2 rounded-full text-[10px] uppercase font-bold border transition-all duration-200 cursor-pointer ${
                 isActive 
-                  ? 'brightness-110' 
-                  : 'hover:brightness-125'
+                  ? 'opacity-100 scale-105 shadow-md' 
+                  : 'opacity-40 hover:opacity-85 hover:scale-105'
               }`}
             >
               {category.name.replace(' Locations', '')}

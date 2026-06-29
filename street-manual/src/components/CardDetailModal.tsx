@@ -80,82 +80,85 @@ export default function CardDetailModal({
               
               {/* === CARD FRONT === */}
               <div 
-                className="absolute inset-0 bg-white text-black rounded-[24px] p-8 flex flex-col justify-between backface-hidden shadow-2xl overflow-hidden"
+                className="absolute inset-0 bg-white text-black rounded-[24px] p-0 flex flex-col justify-between shadow-2xl overflow-hidden"
                 style={{
                   transform: 'rotateY(0deg)',
                   visibility: (!isFlipped || isAnimating) ? 'visible' : 'hidden',
                   pointerEvents: (!isFlipped && !isAnimating) ? 'auto' : 'none',
+                  backfaceVisibility: isAnimating ? 'hidden' : 'visible',
+                  WebkitBackfaceVisibility: isAnimating ? 'hidden' : 'visible',
                 }}
               >
-                {/* Thin category top strip */}
-                <div 
-                  className="absolute top-0 left-0 right-0 h-3" 
-                  style={{ backgroundColor: categoryColor }}
-                />
+                <div className="p-8 pb-0 flex-1 flex flex-col justify-between min-h-0">
+                  {/* Pinned Top Bar */}
+                  <div className="mt-2 flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="text-xs font-black tracking-widest uppercase font-mono"
+                        style={{ color: categoryColor }}
+                      >
+                        {card.categoryName}
+                      </span>
+                    </div>
 
-                {/* Pinned Top Bar */}
-                <div className="mt-4 flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span 
-                      className="text-xs font-black tracking-widest uppercase font-mono"
-                      style={{ color: categoryColor }}
+                    <button
+                      id="modal-mark-read-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleMarkAsRead(card.id);
+                      }}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
+                        isMarkedRead 
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
+                          : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
+                      }`}
                     >
-                      {card.categoryName}
-                    </span>
+                      <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
+                      <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
+                    </button>
                   </div>
 
-                  <button
-                    id="modal-mark-read-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleMarkAsRead(card.id);
-                    }}
-                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-                      isMarkedRead 
-                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
-                        : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
-                    }`}
+                  {/* Scrollable Content (No-flip on click/drag) */}
+                  <div 
+                    className="flex-1 min-h-0 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar overscroll-contain touch-pan-y"
+                    style={{ transform: 'translate3d(0,0,0)', WebkitOverflowScrolling: 'touch' }}
+                    onClick={(e) => e.stopPropagation()}
+                    onTouchStart={(e) => e.stopPropagation()}
+                    onTouchMove={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
-                    <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                    <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
-                  </button>
-                </div>
+                    <h2 className="text-3xl md:text-4xl font-black tracking-tight text-[#111111] leading-none mb-6 uppercase">
+                      {card.title}
+                    </h2>
 
-                {/* Scrollable Content (No-flip on click/drag) */}
-                <div 
-                  className="flex-1 min-h-0 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar overscroll-contain touch-pan-y"
-                  style={{ transform: 'translate3d(0,0,0)', WebkitOverflowScrolling: 'touch' }}
-                  onClick={(e) => e.stopPropagation()}
-                  onTouchStart={(e) => e.stopPropagation()}
-                  onTouchMove={(e) => e.stopPropagation()}
-                  onTouchEnd={(e) => e.stopPropagation()}
-                >
-                  <h2 className="text-3xl md:text-4xl font-black tracking-tight text-[#111111] leading-none mb-6 uppercase">
-                    {card.title}
-                  </h2>
-
-                  <p className="text-base md:text-lg text-[#222222] font-sans font-medium leading-relaxed">
-                    {card.body}
-                  </p>
+                    <p className="text-base md:text-lg text-[#222222] font-sans font-medium leading-relaxed">
+                      {card.body}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Footer and Interactive Hint - Always visible pinned at the bottom */}
-                <div className="border-t border-[#eaeaea] pt-4 flex items-center justify-center md:justify-start">
-                  <div className="flex items-center gap-1.5 text-xs text-[#888888] font-mono uppercase font-bold tracking-wider">
-                    <RotateCw className="h-3.5 w-3.5 animate-spin-slow text-[#777777]" />
+                <div 
+                  className="px-8 py-5 text-white flex items-center justify-between mt-auto"
+                  style={{ backgroundColor: categoryColor }}
+                >
+                  <div className="text-[10px] font-mono font-black uppercase tracking-widest flex items-center justify-between w-full">
                     <span>Click card to view details</span>
+                    <RotateCw className="h-4 w-4 animate-spin-slow text-white" />
                   </div>
                 </div>
               </div>
 
               {/* === CARD BACK (FLIPPED STATE) === */}
               <div 
-                className="absolute inset-0 text-white rounded-[24px] p-8 flex flex-col justify-between backface-hidden shadow-2xl overflow-hidden"
+                className="absolute inset-0 text-white rounded-[24px] p-8 flex flex-col justify-between shadow-2xl overflow-hidden"
                 style={{
                   transform: 'rotateY(180deg)',
                   backgroundColor: categoryColor,
                   visibility: (isFlipped || isAnimating) ? 'visible' : 'hidden',
                   pointerEvents: (isFlipped && !isAnimating) ? 'auto' : 'none',
+                  backfaceVisibility: isAnimating ? 'hidden' : 'visible',
+                  WebkitBackfaceVisibility: isAnimating ? 'hidden' : 'visible',
                 }}
               >
                 {/* Pinned Top Bar */}
