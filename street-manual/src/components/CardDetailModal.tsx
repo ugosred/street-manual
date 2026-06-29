@@ -115,10 +115,12 @@ export default function CardDetailModal({
 
                 {/* Scrollable Content (No-flip on click/drag) */}
                 <div 
-                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar overscroll-contain touch-pan-y"
+                  className="flex-1 min-h-0 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar overscroll-contain touch-pan-y"
+                  style={{ transform: 'translate3d(0,0,0)', WebkitOverflowScrolling: 'touch' }}
                   onClick={(e) => e.stopPropagation()}
                   onTouchStart={(e) => e.stopPropagation()}
                   onTouchMove={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
                 >
                   <h2 className="text-3xl md:text-4xl font-black tracking-tight text-[#111111] leading-none mb-6 uppercase">
                     {card.title}
@@ -170,10 +172,12 @@ export default function CardDetailModal({
 
                 {/* Scrollable Content (No-flip on click/drag) */}
                 <div 
-                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar-white overscroll-contain touch-pan-y"
+                  className="flex-1 min-h-0 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar-white overscroll-contain touch-pan-y"
+                  style={{ transform: 'translate3d(0,0,0)', WebkitOverflowScrolling: 'touch' }}
                   onClick={(e) => e.stopPropagation()}
                   onTouchStart={(e) => e.stopPropagation()}
                   onTouchMove={(e) => e.stopPropagation()}
+                  onTouchEnd={(e) => e.stopPropagation()}
                 >
                   <h3 className="text-xl font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
                     <ClipboardList className="h-5 w-5 text-white/95" />
