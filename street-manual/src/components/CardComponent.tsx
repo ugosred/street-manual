@@ -152,21 +152,11 @@ export default function CardComponent({
             </button>
           </div>
         ) : (
-          <>
-            <div
-              className="text-[10px] font-mono font-black uppercase tracking-widest flex items-center gap-1.5 transition-all duration-200 text-[#111111]"
-            >
-              <span>Click to View</span>
-              <ArrowRight className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-1" />
-            </div>
-
-            {card.location && (
-              <span className="flex items-center gap-1 text-[#888888] font-mono text-[9px] font-bold uppercase tracking-wider truncate max-w-[140px]">
-                <Compass className="h-3.5 w-3.5 text-[#555555]" />
-                <span className="truncate text-[#333333]">{card.location.split(',')[0]}</span>
-              </span>
-            )}
-          </>
+          <div
+            className="text-[10px] font-mono font-black uppercase tracking-widest flex items-center gap-1.5 transition-all duration-200 text-[#111111]"
+          >
+            <span>Click to View</span>
+          </div>
         )}
       </div>
     </motion.div>

@@ -22,10 +22,10 @@ export default function Header({
         <div>
           <h1 
             id="site-title"
-            className="flex items-center gap-3 text-5xl md:text-6xl font-extrabold tracking-[-0.05em] leading-none uppercase text-white cursor-pointer selection:bg-white selection:text-black whitespace-nowrap"
+            className="flex items-center gap-2 sm:gap-3 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-[-0.05em] leading-none uppercase text-white cursor-pointer selection:bg-white selection:text-black whitespace-nowrap"
             onClick={() => onNavigate('browse')}
           >
-            <Camera className="h-10 w-10 md:h-12 md:w-12 text-white shrink-0" />
+            <Camera className="h-7 w-7 sm:h-10 sm:w-10 md:h-12 md:w-12 text-white shrink-0" />
             <span>Street Manual</span>
           </h1>
           <p className="text-neutral-400 mt-2 text-lg">

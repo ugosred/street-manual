@@ -77,37 +77,39 @@ export default function CardDetailModal({
                   style={{ backgroundColor: categoryColor }}
                 />
 
-                <div className="mt-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span 
-                        className="text-xs font-black tracking-widest uppercase font-mono"
-                        style={{ color: categoryColor }}
-                      >
-                        {card.categoryName}
-                      </span>
-                      <span className="bg-[#f0f0f0] text-[#666666] font-mono text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">
-                        Front Side
-                      </span>
-                    </div>
-
-                    <button
-                      id="modal-mark-read-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleMarkAsRead(card.id);
-                      }}
-                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-                        isMarkedRead 
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
-                          : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
-                      }`}
+                {/* Pinned Top Bar */}
+                <div className="mt-4 flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span 
+                      className="text-xs font-black tracking-widest uppercase font-mono"
+                      style={{ color: categoryColor }}
                     >
-                      <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                      <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
-                    </button>
+                      {card.categoryName}
+                    </span>
                   </div>
 
+                  <button
+                    id="modal-mark-read-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleMarkAsRead(card.id);
+                    }}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
+                      isMarkedRead 
+                        ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
+                        : 'bg-neutral-50 text-[#666666] border-neutral-200 hover:bg-neutral-100 hover:text-black'
+                    }`}
+                  >
+                    <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
+                    <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
+                  </button>
+                </div>
+
+                {/* Scrollable Content (No-flip on click/drag) */}
+                <div 
+                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <h2 className="text-3xl md:text-4xl font-black tracking-tight text-[#111111] leading-none mb-6 uppercase">
                     {card.title}
                   </h2>
@@ -117,15 +119,12 @@ export default function CardDetailModal({
                   </p>
                 </div>
 
-                {/* Footer and Interactive Hint */}
-                <div className="border-t border-[#eaeaea] pt-4 flex items-center justify-between">
+                {/* Footer and Interactive Hint - Always visible pinned at the bottom */}
+                <div className="border-t border-[#eaeaea] pt-4 flex items-center justify-center md:justify-start">
                   <div className="flex items-center gap-1.5 text-xs text-[#888888] font-mono uppercase font-bold tracking-wider">
                     <RotateCw className="h-3.5 w-3.5 animate-spin-slow text-[#777777]" />
                     <span>Click card to view details</span>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-[#888888]">
-                    STREET NOTES © LUKE
-                  </span>
                 </div>
               </div>
 
@@ -137,28 +136,33 @@ export default function CardDetailModal({
                   backgroundColor: categoryColor,
                 }}
               >
-                <div className="mt-4">
-                  <div className="flex items-center justify-between mb-5 pb-2 border-b border-white/25">
-                    <span className="text-xs font-black tracking-widest uppercase font-mono text-white/90">
-                      Field Assignment
-                    </span>
-                    <button
-                      id="modal-mark-read-btn-back"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleMarkAsRead(card.id);
-                      }}
-                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
-                        isMarkedRead 
-                          ? 'bg-emerald-600/30 text-emerald-200 border-emerald-500/50 hover:bg-emerald-600/40' 
-                          : 'bg-white/10 text-white/80 border-white/20 hover:bg-white/20 hover:text-white'
-                      }`}
-                    >
-                      <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
-                      <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
-                    </button>
-                  </div>
+                {/* Pinned Top Bar */}
+                <div className="mt-4 flex items-center justify-between mb-5 pb-2 border-b border-white/25">
+                  <span className="text-xs font-black tracking-widest uppercase font-mono text-white/90">
+                    Field Assignment
+                  </span>
+                  <button
+                    id="modal-mark-read-btn-back"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleMarkAsRead(card.id);
+                    }}
+                    className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
+                      isMarkedRead 
+                        ? 'bg-emerald-600/30 text-emerald-200 border-emerald-500/50 hover:bg-emerald-600/40' 
+                        : 'bg-white/10 text-white/80 border-white/20 hover:bg-white/20 hover:text-white'
+                    }`}
+                  >
+                    <Check className={`h-3 w-3 ${isMarkedRead ? 'stroke-[3]' : 'stroke-[2]'}`} />
+                    <span>{isMarkedRead ? 'Completed' : 'Mark as Read'}</span>
+                  </button>
+                </div>
 
+                {/* Scrollable Content (No-flip on click/drag) */}
+                <div 
+                  className="flex-1 overflow-y-auto pr-1 mb-4 select-text cursor-auto custom-scrollbar-white"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <h3 className="text-xl font-black text-white uppercase tracking-tight mb-4 flex items-center gap-2">
                     <ClipboardList className="h-5 w-5 text-white/95" />
                     <span>The Assignment</span>
@@ -212,7 +216,11 @@ export default function CardDetailModal({
                 <div className="pt-4 border-t border-white/20 flex items-center justify-between">
                   <button 
                     id="flip-back-hint"
-                    className="flex items-center gap-1 text-xs text-white/80 font-mono font-bold uppercase hover:text-white transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsFlipped(false);
+                    }}
+                    className="flex items-center gap-1 text-xs text-white/80 font-mono font-bold uppercase hover:text-white transition-colors cursor-pointer"
                   >
                     <RotateCw className="h-3.5 w-3.5" />
                     <span>Flip back</span>
@@ -227,11 +235,6 @@ export default function CardDetailModal({
           </div>
 
           {/* Quick Info text beneath card */}
-          <div className="mt-4 text-center">
-            <p className="text-xs text-[#888888] font-mono">
-              Click the card to flip it over. Use standard manual camera dials to replicate.
-            </p>
-          </div>
         </motion.div>
       </div>
     </AnimatePresence>
